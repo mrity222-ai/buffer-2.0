@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { 
   Layers, 
   Calendar, 
@@ -8,12 +10,12 @@ import {
   Clock, 
   Settings, 
   PlusCircle, 
-  ShieldCheck, 
   Home,
-  Sparkles,
-  Users
+  LogOut,
+  Sparkles
 } from 'lucide-react';
 import { SocialAccount } from '@/types';
+import { useAuth } from '@/lib/auth-context';
 
 interface SidebarProps {
   currentTab: string;
@@ -32,14 +34,22 @@ export function Sidebar({
   setSelectedAccountId,
   onOpenConnectModal,
 }: SidebarProps) {
+  const router = useRouter();
+  const { user, logoutUser } = useAuth();
+
   const facebookAccounts = accounts.filter(a => a.platform === 'facebook_page');
   const instagramAccounts = accounts.filter(a => a.platform === 'instagram_business');
+
+  const handleLogout = () => {
+    logoutUser();
+    router.push('/user/login');
+  };
 
   return (
     <aside className="w-72 bg-white border-r border-slate-200 flex flex-col h-screen select-none shrink-0 font-sans">
       {/* Brand & Workspace Header */}
       <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-        <div className="flex items-center space-x-2.5">
+        <Link href="/" className="flex items-center space-x-2.5">
           <div className="w-9 h-9 rounded-xl bg-[#1877F2] flex items-center justify-center text-white shadow-xs">
             <Share2 className="w-5 h-5 text-white" />
           </div>
@@ -47,18 +57,18 @@ export function Sidebar({
             <h1 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-1.5">
               Social Publisher
               <span className="text-[10px] font-bold bg-[#E7F3FF] text-[#1877F2] px-1.5 py-0.5 rounded-full">
-                SaaS
+                Creator
               </span>
             </h1>
             <p className="text-[11px] text-slate-500 font-medium">Create Once. Publish Everywhere.</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Main Navigation Tabs */}
       <div className="px-3 pt-3 pb-2">
         <p className="px-2 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-          Core Modules
+          Publishing Workflows
         </p>
         <nav className="space-y-1">
           <button
@@ -112,23 +122,6 @@ export function Sidebar({
           </button>
 
           <button
-            onClick={() => setCurrentTab('admin')}
-            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-              currentTab === 'admin'
-                ? 'bg-purple-50 text-purple-700 font-bold'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-            }`}
-          >
-            <div className="flex items-center space-x-2.5">
-              <Users className={`w-4 h-4 ${currentTab === 'admin' ? 'text-purple-600' : 'text-slate-400'}`} />
-              <span>Admin & Users</span>
-            </div>
-            <span className="text-[9px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">
-              Admin
-            </span>
-          </button>
-
-          <button
             onClick={() => setCurrentTab('settings')}
             className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               currentTab === 'settings'
@@ -138,20 +131,20 @@ export function Sidebar({
           >
             <div className="flex items-center space-x-2.5">
               <Settings className={`w-4 h-4 ${currentTab === 'settings' ? 'text-[#1877F2]' : 'text-slate-400'}`} />
-              <span>Settings & Keys</span>
+              <span>Settings & Plan</span>
             </div>
           </button>
 
-          <button
-            onClick={() => setCurrentTab('landing')}
-            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer text-slate-600 hover:bg-blue-50 hover:text-[#1877F2]`}
+          <Link
+            href="/"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:bg-slate-50 hover:text-[#1877F2]"
           >
             <div className="flex items-center space-x-2.5">
               <Home className="w-4 h-4 text-slate-400" />
               <span>View Landing Page</span>
             </div>
-            <span className="text-[10px] text-slate-400">Web</span>
-          </button>
+            <span className="text-[10px] text-slate-400 font-medium">Home</span>
+          </Link>
         </nav>
       </div>
 
@@ -258,9 +251,9 @@ export function Sidebar({
       {/* Plan Limits Card */}
       <div className="p-3.5 m-3 bg-slate-50 rounded-2xl border border-slate-200">
         <div className="flex items-center justify-between text-xs font-bold text-slate-800">
-          <span>Starter Plan</span>
+          <span>{user?.plan || 'Starter Plan'}</span>
           <span className="text-[10px] font-bold bg-[#E7F3FF] text-[#1877F2] px-2 py-0.5 rounded-full">
-            ₹199/mo
+            Active
           </span>
         </div>
         <div className="mt-2.5 w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
@@ -268,21 +261,31 @@ export function Sidebar({
         </div>
         <p className="mt-2 text-[11px] text-slate-500 flex justify-between font-medium">
           <span>Channels: {accounts.length}/5</span>
-          <span className="text-[#1877F2] hover:underline cursor-pointer font-bold">Upgrade</span>
+          <span onClick={() => setCurrentTab('settings')} className="text-[#1877F2] hover:underline cursor-pointer font-bold">
+            Change Plan
+          </span>
         </p>
       </div>
 
-      {/* User Footer Profile */}
+      {/* User Footer Profile with Logout Button */}
       <div className="p-3.5 border-t border-slate-200 flex items-center justify-between bg-white">
-        <div className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center text-xs font-bold">
-            AD
+        <div className="flex items-center space-x-2.5 truncate">
+          <div className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center text-xs font-bold shrink-0">
+            {user?.name ? user.name.slice(0, 2).toUpperCase() : 'CR'}
           </div>
-          <div className="leading-tight">
-            <p className="text-xs font-bold text-slate-800">Avedan Agency</p>
-            <p className="text-[10px] text-slate-400">admin@publisher.io</p>
+          <div className="leading-tight truncate">
+            <p className="text-xs font-bold text-slate-800 truncate">{user?.name || 'Social Creator'}</p>
+            <p className="text-[10px] text-slate-400 truncate">{user?.email || 'creator@studio.com'}</p>
           </div>
         </div>
+
+        <button
+          onClick={handleLogout}
+          className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer shrink-0"
+          title="Logout from User Account"
+        >
+          <LogOut className="w-4 h-4" />
+        </button>
       </div>
     </aside>
   );

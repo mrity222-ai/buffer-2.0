@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
   title: "Social Publisher | Create Once. Publish Everywhere.",
@@ -13,8 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full bg-[#f8fafc] text-slate-900 font-sans selection:bg-purple-100 selection:text-purple-900">
-        {children}
+      <body className="min-h-full bg-[#f8fafc] text-slate-900 font-sans selection:bg-[#E7F3FF] selection:text-[#1877F2]">
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
