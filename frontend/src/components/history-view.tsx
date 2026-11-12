@@ -18,7 +18,6 @@ interface HistoryViewProps {
 }
 
 export function HistoryView({ posts, onRetryTarget }: HistoryViewProps) {
-  // Flatten post targets to show per-destination granular publishing logs
   const flattenedHistory: Array<{
     postId: string;
     caption: string;
@@ -40,15 +39,15 @@ export function HistoryView({ posts, onRetryTarget }: HistoryViewProps) {
   });
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden font-sans">
       <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h3 className="text-sm font-bold text-slate-900">Multi-Channel Publishing History</h3>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 font-medium">
             Real-time delivery status, error logs, and one-click retry across all social platforms
           </p>
         </div>
-        <span className="text-xs font-semibold px-2.5 py-1 bg-purple-50 text-purple-700 rounded-full">
+        <span className="text-xs font-bold px-2.5 py-1 bg-[#E7F3FF] text-[#1877F2] rounded-full">
           {flattenedHistory.length} Total Dispatches
         </span>
       </div>
@@ -64,9 +63,9 @@ export function HistoryView({ posts, onRetryTarget }: HistoryViewProps) {
               <th className="px-6 py-3.5 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-slate-100 font-medium">
             {flattenedHistory.map((item, idx) => (
-              <tr key={`${item.postId}-${item.target.accountId}-${idx}`} className="hover:bg-slate-50/60 transition-colors">
+              <tr key={`${item.postId}-${item.target.accountId}-${idx}`} className="hover:bg-slate-50/70 transition-colors">
                 {/* Channel info */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center space-x-2.5">
@@ -79,7 +78,7 @@ export function HistoryView({ posts, onRetryTarget }: HistoryViewProps) {
                       <div
                         className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full flex items-center justify-center text-[7px] text-white font-bold ${
                           item.target.platform === 'facebook_page'
-                            ? 'bg-blue-600'
+                            ? 'bg-[#1877F2]'
                             : 'bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600'
                         }`}
                       >
@@ -149,7 +148,7 @@ export function HistoryView({ posts, onRetryTarget }: HistoryViewProps) {
                         href={item.target.permalink}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-purple-600 hover:text-purple-800 text-[11px] font-semibold flex items-center space-x-1 hover:underline"
+                        className="text-[#1877F2] hover:text-[#166FE5] text-[11px] font-bold flex items-center space-x-1 hover:underline"
                       >
                         <span>View Post</span>
                         <ExternalLink className="w-3 h-3" />
@@ -159,7 +158,7 @@ export function HistoryView({ posts, onRetryTarget }: HistoryViewProps) {
                     {item.target.status === 'failed' && (
                       <button
                         onClick={() => onRetryTarget(item.postId, item.target.accountId)}
-                        className="flex items-center space-x-1 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"
+                        className="flex items-center space-x-1 bg-[#E7F3FF] text-[#1877F2] hover:bg-[#1877F2] hover:text-white px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer"
                       >
                         <RotateCw className="w-3 h-3" />
                         <span>Retry</span>

@@ -7,6 +7,8 @@ import { QueueView } from '@/components/queue-view';
 import { AccountsView } from '@/components/accounts-view';
 import { HistoryView } from '@/components/history-view';
 import { SettingsView } from '@/components/settings-view';
+import { AdminView } from '@/components/admin-view';
+import { LandingPage } from '@/components/landing-page';
 import { ComposerModal } from '@/components/composer-modal';
 import { INITIAL_ACCOUNTS, INITIAL_POSTS } from '@/lib/mock-data';
 import { SocialAccount, PostItem } from '@/types';
@@ -19,7 +21,7 @@ export default function SocialPublisherApp() {
   const [posts, setPosts] = useState<PostItem[]>(INITIAL_POSTS);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Load state from localStorage if available
+  // Load state from localStorage
   useEffect(() => {
     try {
       const savedAccounts = localStorage.getItem('sp_accounts');
@@ -32,7 +34,6 @@ export default function SocialPublisherApp() {
     }
   }, []);
 
-  // Save changes to localStorage
   const updatePosts = (newPosts: PostItem[]) => {
     setPosts(newPosts);
     try {
@@ -71,7 +72,7 @@ export default function SocialPublisherApp() {
             permalink:
               tgt.platform === 'facebook_page'
                 ? `https://facebook.com/${tgt.accountUsername}/posts/${Date.now()}`
-                : `https://instagram.com/p/live_${Date.now()}`,
+                : `https://instagram.com/reel/live_${Date.now()}`,
           })),
         };
       }
@@ -81,7 +82,7 @@ export default function SocialPublisherApp() {
   };
 
   const handleDeletePost = (postId: string) => {
-    if (confirm('Are you sure you want to delete this post?')) {
+    if (confirm('Are you sure you want to delete this post/reel?')) {
       updatePosts(posts.filter((p) => p.id !== postId));
     }
   };
@@ -96,7 +97,7 @@ export default function SocialPublisherApp() {
               status: 'published' as const,
               errorMessage: undefined,
               publishedAt: 'Retried successfully just now',
-              permalink: `https://instagram.com/p/retry_${Date.now()}`,
+              permalink: `https://instagram.com/reel/retry_${Date.now()}`,
             };
           }
           return tgt;
@@ -132,9 +133,22 @@ export default function SocialPublisherApp() {
     }, 600);
   };
 
+  // If viewing the 1-Page Marketing Landing Page
+  if (currentTab === 'landing') {
+    return (
+      <LandingPage
+        onGoToApp={() => setCurrentTab('queue')}
+        onOpenComposer={() => {
+          setCurrentTab('queue');
+          setIsComposerOpen(true);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="flex h-screen bg-[#f8fafc] text-slate-900 font-sans antialiased overflow-hidden">
-      {/* Left Channel Sidebar (Buffer Hallmark) */}
+      {/* Left Channel Sidebar */}
       <Sidebar
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
@@ -183,12 +197,14 @@ export default function SocialPublisherApp() {
               />
             )}
 
+            {currentTab === 'admin' && <AdminView />}
+
             {currentTab === 'settings' && <SettingsView />}
           </div>
         </main>
       </div>
 
-      {/* Buffer-Style Composer Modal */}
+      {/* Video & Reels Post Composer */}
       <ComposerModal
         isOpen={isComposerOpen}
         onClose={() => setIsComposerOpen(false)}

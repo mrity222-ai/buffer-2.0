@@ -1,12 +1,20 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 248 250 252;
-    --foreground: 15 23 42;
-    --primary: 109 40 217; /* Vibrant Purple #6d28d9 */
-    --primary-hover: 91 33 182;
-  }
+:root {
+  --fb-blue: #1877F2;
+  --fb-blue-hover: #166FE5;
+  --fb-blue-light: #E7F3FF;
+  --fb-bg: #F0F2F5;
+  --fb-text: #050505;
+  --fb-subtext: #65676B;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom minimal scrollbar */

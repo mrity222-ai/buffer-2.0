@@ -59,19 +59,19 @@ export function AccountsView({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       {/* Top Banner with Meta Graph API explanation */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
-            <span className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">
+          <div className="flex items-center space-x-2.5">
+            <span className="w-8 h-8 rounded-xl bg-[#E7F3FF] text-[#1877F2] flex items-center justify-center font-bold text-sm">
               <ShieldCheck className="w-5 h-5" />
             </span>
             <h2 className="text-base font-bold text-slate-900">
               Meta Graph API & Social Channels
             </h2>
           </div>
-          <p className="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed font-medium">
             Connect your <strong>Facebook Pages</strong> and <strong>Instagram Professional Accounts</strong>.
             Meta allows programmatic publishing strictly to business pages and professional creator accounts (personal profiles are not supported).
           </p>
@@ -79,7 +79,7 @@ export function AccountsView({
 
         <button
           onClick={() => setIsConnectModalOpen(true)}
-          className="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all flex items-center space-x-2 shrink-0 cursor-pointer"
+          className="bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all flex items-center space-x-2 shrink-0 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Connect New Channel</span>
@@ -87,18 +87,18 @@ export function AccountsView({
       </div>
 
       {/* Facebook Pages Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs">
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold shadow-xs">
+            <div className="w-8 h-8 rounded-lg bg-[#1877F2] text-white flex items-center justify-center text-sm font-bold shadow-xs">
               f
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-900">Connected Facebook Pages</h3>
-              <p className="text-xs text-slate-400">Pages with `pages_manage_posts` publishing access</p>
+              <p className="text-xs text-slate-400 font-medium">Pages with `pages_manage_posts` publishing access</p>
             </div>
           </div>
-          <span className="text-xs bg-blue-50 text-blue-700 font-bold px-2.5 py-1 rounded-full">
+          <span className="text-xs bg-[#E7F3FF] text-[#1877F2] font-bold px-2.5 py-1 rounded-full">
             {facebookAccounts.length} Connected
           </span>
         </div>
@@ -112,7 +112,7 @@ export function AccountsView({
             {facebookAccounts.map((account) => (
               <div
                 key={account.id}
-                className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex items-center justify-between hover:bg-white hover:border-slate-300 transition-all"
+                className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 flex items-center justify-between hover:bg-white hover:border-slate-300 transition-all"
               >
                 <div className="flex items-center space-x-3">
                   <div className="relative">
@@ -121,18 +121,18 @@ export function AccountsView({
                       alt={account.name}
                       className="w-11 h-11 rounded-full object-cover border border-slate-200"
                     />
-                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-[8px] text-white font-bold">
+                    <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#1877F2] rounded-full flex items-center justify-center text-[8px] text-white font-bold">
                       f
                     </div>
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900">{account.name}</h4>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="text-[11px] text-slate-400 font-medium">
                       @{account.username} · {account.category}
                     </p>
                     <div className="flex items-center space-x-1.5 mt-1">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span className="text-[10px] text-emerald-700 font-semibold">Active & Valid Token</span>
+                      <span className="text-[10px] text-emerald-700 font-bold">Active & Valid Token</span>
                     </div>
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export function AccountsView({
                 <div className="flex items-center space-x-1">
                   <button
                     onClick={() => onRemoveAccount(account.id)}
-                    className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                     title="Disconnect Page"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -153,7 +153,7 @@ export function AccountsView({
       </div>
 
       {/* Instagram Professional Accounts Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs">
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2.5">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center text-sm font-bold shadow-xs">
@@ -161,7 +161,7 @@ export function AccountsView({
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-900">Connected Instagram Accounts</h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-400 font-medium">
                 Business & Creator accounts with `instagram_content_publish`
               </p>
             </div>
@@ -180,7 +180,7 @@ export function AccountsView({
             {instagramAccounts.map((account) => (
               <div
                 key={account.id}
-                className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex items-center justify-between hover:bg-white hover:border-slate-300 transition-all"
+                className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 flex items-center justify-between hover:bg-white hover:border-slate-300 transition-all"
               >
                 <div className="flex items-center space-x-3">
                   <div className="relative">
@@ -195,12 +195,12 @@ export function AccountsView({
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900">{account.name}</h4>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="text-[11px] text-slate-400 font-medium">
                       @{account.username} · {account.category}
                     </p>
                     <div className="flex items-center space-x-1.5 mt-1">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span className="text-[10px] text-emerald-700 font-semibold">Active & Valid Token</span>
+                      <span className="text-[10px] text-emerald-700 font-bold">Active & Valid Token</span>
                     </div>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export function AccountsView({
                 <div className="flex items-center space-x-1">
                   <button
                     onClick={() => onRemoveAccount(account.id)}
-                    className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                     title="Disconnect Account"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -222,27 +222,27 @@ export function AccountsView({
 
       {/* Connect Account Modal */}
       {isConnectModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-200 p-6">
             <h3 className="text-base font-bold text-slate-900 mb-1">
               Connect Social Media Channel
             </h3>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-slate-500 mb-4 font-medium">
               Select platform and enter details to simulate Meta OAuth authorization.
             </p>
 
             <form onSubmit={handleConnectNew} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Social Platform
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setSelectedPlatform('facebook_page')}
-                    className={`py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center space-x-2 ${
+                    className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 cursor-pointer ${
                       selectedPlatform === 'facebook_page'
-                        ? 'border-blue-600 bg-blue-50 text-blue-700'
+                        ? 'border-[#1877F2] bg-[#E7F3FF] text-[#1877F2]'
                         : 'border-slate-200 text-slate-600'
                     }`}
                   >
@@ -252,7 +252,7 @@ export function AccountsView({
                   <button
                     type="button"
                     onClick={() => setSelectedPlatform('instagram_business')}
-                    className={`py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center space-x-2 ${
+                    className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 cursor-pointer ${
                       selectedPlatform === 'instagram_business'
                         ? 'border-rose-600 bg-rose-50 text-rose-700'
                         : 'border-slate-200 text-slate-600'
@@ -264,7 +264,7 @@ export function AccountsView({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   {selectedPlatform === 'facebook_page' ? 'Page Name' : 'Account Name'}
                 </label>
                 <input
@@ -275,12 +275,12 @@ export function AccountsView({
                   }
                   value={accountName}
                   onChange={(e) => setAccountName(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600"
+                  className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1877F2]/20 focus:border-[#1877F2]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Username / Handle
                 </label>
                 <input
@@ -288,7 +288,7 @@ export function AccountsView({
                   placeholder="e.g. mybrand"
                   value={accountUsername}
                   onChange={(e) => setAccountUsername(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600"
+                  className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1877F2]/20 focus:border-[#1877F2]"
                 />
               </div>
 
@@ -296,13 +296,13 @@ export function AccountsView({
                 <button
                   type="button"
                   onClick={() => setIsConnectModalOpen(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                  className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-xl shadow-xs"
+                  className="px-4 py-2 text-xs font-bold text-white bg-[#1877F2] hover:bg-[#166FE5] rounded-xl shadow-xs cursor-pointer"
                 >
                   Authorize & Connect
                 </button>
