@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: social_publisher_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-publisher}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-publisher_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-social_publisher}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-publisher} -d ${POSTGRES_DB:-social_publisher}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: social_publisher_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: social_publisher_api
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-publisher}:${POSTGRES_PASSWORD:-publisher_secret}@postgres:5432/${POSTGRES_DB:-social_publisher}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      SECRET_KEY: ${SECRET_KEY:-super_secret_jwt_key_change_in_production_123456}
+      META_APP_ID: ${META_APP_ID}
+      META_APP_SECRET: ${META_APP_SECRET}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: social_publisher_worker
+    command: celery -A app.publishing.worker.celery_app worker --loglevel=info
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-publisher}:${POSTGRES_PASSWORD:-publisher_secret}@postgres:5432/${POSTGRES_DB:-social_publisher}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      SECRET_KEY: ${SECRET_KEY:-super_secret_jwt_key_change_in_production_123456}
+      META_APP_ID: ${META_APP_ID}
+      META_APP_SECRET: ${META_APP_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: social_publisher_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
