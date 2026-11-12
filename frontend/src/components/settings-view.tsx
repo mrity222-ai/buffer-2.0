@@ -8,97 +8,91 @@ import {
   User, 
   Server, 
   ShieldAlert,
-  Sparkles
+  Sparkles,
+  Zap
 } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
 
 export function SettingsView() {
+  const { user, packages, upgradeUserPlan } = useAuth();
   const [metaAppId, setMetaAppId] = useState('194820491823910');
   const [metaAppSecret, setMetaAppSecret] = useState('••••••••••••••••••••••••');
-  const [currentPlan, setCurrentPlan] = useState('Starter');
+  const [justUpgraded, setJustUpgraded] = useState<string | null>(null);
 
-  const plans = [
-    {
-      name: 'Free',
-      price: '₹0',
-      period: 'forever',
-      channels: '2 Accounts',
-      posts: '10 posts/month',
-      isPopular: false,
-    },
-    {
-      name: 'Starter',
-      price: '₹199',
-      period: '/month',
-      channels: '5 Accounts',
-      posts: 'Unlimited posts',
-      isPopular: true,
-    },
-    {
-      name: 'Pro',
-      price: '₹499',
-      period: '/month',
-      channels: '15 Accounts',
-      posts: 'Unlimited + priority queue',
-      isPopular: false,
-    },
-    {
-      name: 'Agency',
-      price: '₹999',
-      period: '/month',
-      channels: '30 Accounts',
-      posts: 'Unlimited + dedicated workers',
-      isPopular: false,
-    },
-  ];
+  const currentPlan = user?.plan || 'Free Tier';
+
+  const handleSelectPlan = (planName: string) => {
+    upgradeUserPlan(planName);
+    setJustUpgraded(planName);
+    setTimeout(() => {
+      setJustUpgraded(null);
+    }, 2500);
+  };
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6 max-w-4xl font-sans">
       {/* SaaS Subscription Plans */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs">
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-sm font-bold text-slate-900">SaaS Subscription & Pricing</h3>
-            <p className="text-xs text-slate-500">
-              Pick the right tier for your creator workflow or marketing agency
+            <h3 className="text-sm font-bold text-slate-900">SaaS Subscription & Creator Plans</h3>
+            <p className="text-xs text-slate-500 font-medium">
+              Upgrade your channels, queue capacity, and 1080p high quality video limits
             </p>
           </div>
-          <span className="text-xs bg-purple-100 text-purple-700 font-bold px-2.5 py-1 rounded-full">
-            Current: {currentPlan} Tier
+          <span className="text-xs bg-[#E7F3FF] text-[#1877F2] font-bold px-3 py-1 rounded-full">
+            Current: {currentPlan}
           </span>
         </div>
 
+        {justUpgraded && (
+          <div className="mb-4 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center space-x-2 animate-in fade-in">
+            <Check className="w-4 h-4 text-emerald-600" />
+            <span>Success! Workspace upgraded to {justUpgraded}. Your new channel limit is active.</span>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-          {plans.map((p) => {
-            const isCurrent = currentPlan === p.name;
+          {packages.map((p) => {
+            const isCurrent = currentPlan.toLowerCase() === p.name.toLowerCase();
             return (
               <div
-                key={p.name}
+                key={p.id}
                 className={`p-4 rounded-xl border transition-all flex flex-col justify-between ${
                   p.isPopular
-                    ? 'border-purple-600 ring-2 ring-purple-600/10 bg-purple-50/20'
-                    : 'border-slate-200 bg-white'
+                    ? 'border-[#1877F2] ring-2 ring-[#1877F2]/10 bg-[#E7F3FF]/20 shadow-xs'
+                    : isCurrent
+                    ? 'border-emerald-500 bg-emerald-50/20'
+                    : 'border-slate-200 bg-white hover:border-slate-300'
                 }`}
               >
                 <div>
                   {p.isPopular && (
-                    <span className="text-[9px] font-bold uppercase tracking-wider bg-purple-600 text-white px-2 py-0.5 rounded-full inline-block mb-2">
+                    <span className="text-[9px] font-black uppercase tracking-wider bg-[#1877F2] text-white px-2 py-0.5 rounded-full inline-block mb-2">
                       Most Popular
                     </span>
                   )}
-                  <h4 className="text-sm font-bold text-slate-900">{p.name}</h4>
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-bold text-slate-900">{p.name}</h4>
+                    {isCurrent && (
+                      <span className="text-[9px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded">
+                        Active
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-2 flex items-baseline space-x-1">
                     <span className="text-2xl font-black text-slate-900">{p.price}</span>
-                    <span className="text-xs text-slate-400">{p.period}</span>
+                    <span className="text-xs text-slate-400 font-semibold">{p.period}</span>
                   </div>
 
-                  <ul className="mt-4 space-y-2 text-xs text-slate-600">
+                  <ul className="mt-4 space-y-2 text-xs text-slate-600 font-medium">
                     <li className="flex items-center space-x-2">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span>{p.channels}</span>
+                      <Zap className="w-3.5 h-3.5 text-[#1877F2] shrink-0" />
+                      <span>{p.accountLimit} Channels</span>
                     </li>
                     <li className="flex items-center space-x-2">
                       <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span>{p.posts}</span>
+                      <span>{p.monthlyPostLimit}</span>
                     </li>
                     <li className="flex items-center space-x-2">
                       <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -108,14 +102,17 @@ export function SettingsView() {
                 </div>
 
                 <button
-                  onClick={() => setCurrentPlan(p.name)}
+                  disabled={isCurrent}
+                  onClick={() => handleSelectPlan(p.name)}
                   className={`mt-5 w-full py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     isCurrent
-                      ? 'bg-slate-100 text-slate-700 cursor-default'
-                      : 'bg-purple-600 hover:bg-purple-700 text-white shadow-xs'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
+                      : p.isPopular
+                      ? 'bg-[#1877F2] hover:bg-[#166FE5] text-white shadow-xs active:scale-98'
+                      : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xs active:scale-98'
                   }`}
                 >
-                  {isCurrent ? 'Active Plan' : 'Select Plan'}
+                  {isCurrent ? 'Active Plan' : `Upgrade to ${p.name.split(' ')[0]}`}
                 </button>
               </div>
             );

@@ -10,21 +10,32 @@ import {
   RefreshCw, 
   ExternalLink,
   ShieldCheck,
-  Info
+  Info,
+  Sparkles
 } from 'lucide-react';
 import { SocialAccount } from '@/types';
+import { useAuth } from '@/lib/auth-context';
 
 interface AccountsViewProps {
   accounts: SocialAccount[];
   onAddAccount: (account: SocialAccount) => void;
   onRemoveAccount: (id: string) => void;
+  onOpenUpgradeModal: () => void;
 }
 
 export function AccountsView({
   accounts,
   onAddAccount,
   onRemoveAccount,
+  onOpenUpgradeModal,
 }: AccountsViewProps) {
+  const { user, packages } = useAuth();
+  const currentPlan = packages.find(
+    (p) => p.name.toLowerCase() === (user?.plan || 'Free Tier').toLowerCase()
+  ) || packages[0];
+  const channelLimit = currentPlan?.accountLimit || 2;
+  const isLimitReached = accounts.length >= channelLimit;
+
   const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState<'facebook_page' | 'instagram_business'>('facebook_page');
   const [accountName, setAccountName] = useState('');
@@ -78,13 +89,45 @@ export function AccountsView({
         </div>
 
         <button
-          onClick={() => setIsConnectModalOpen(true)}
+          onClick={() => {
+            if (isLimitReached) {
+              onOpenUpgradeModal();
+            } else {
+              setIsConnectModalOpen(true);
+            }
+          }}
           className="bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all flex items-center space-x-2 shrink-0 cursor-pointer"
         >
-          <Plus className="w-4 h-4" />
-          <span>Connect New Channel</span>
+          {isLimitReached ? <Sparkles className="w-4 h-4 text-amber-300" /> : <Plus className="w-4 h-4" />}
+          <span>{isLimitReached ? 'Upgrade to Connect More' : 'Connect New Channel'}</span>
         </button>
       </div>
+
+      {/* Plan limit warning banner when user reaches limit */}
+      {isLimitReached && (
+        <div className="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-start sm:items-center space-x-3">
+            <div className="p-2 bg-amber-100 rounded-xl text-amber-700 shrink-0">
+              <AlertTriangle className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-amber-900">
+                Channel Limit Reached ({accounts.length}/{channelLimit} Channels on {user?.plan || 'Free Tier'})
+              </h4>
+              <p className="text-[11px] text-amber-700 font-medium mt-0.5">
+                You are currently using all channels available on your plan. Upgrade to Starter (5 channels) or Pro (15 channels) to connect more.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onOpenUpgradeModal}
+            className="bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs shrink-0 cursor-pointer flex items-center space-x-1.5 self-start sm:self-center"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <span>Upgrade Plan Now</span>
+          </button>
+        </div>
+      )}
 
       {/* Facebook Pages Section */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">

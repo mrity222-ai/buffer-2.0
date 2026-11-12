@@ -24,6 +24,7 @@ interface SidebarProps {
   selectedAccountId: string | null;
   setSelectedAccountId: (id: string | null) => void;
   onOpenConnectModal: () => void;
+  onOpenUpgradeModal: () => void;
 }
 
 export function Sidebar({
@@ -33,9 +34,15 @@ export function Sidebar({
   selectedAccountId,
   setSelectedAccountId,
   onOpenConnectModal,
+  onOpenUpgradeModal,
 }: SidebarProps) {
   const router = useRouter();
-  const { user, logoutUser } = useAuth();
+  const { user, logoutUser, packages } = useAuth();
+
+  const currentPlan = packages.find(
+    (p) => p.name.toLowerCase() === (user?.plan || 'Free Tier').toLowerCase()
+  ) || packages[0];
+  const channelLimit = currentPlan?.accountLimit || 2;
 
   const facebookAccounts = accounts.filter(a => a.platform === 'facebook_page');
   const instagramAccounts = accounts.filter(a => a.platform === 'instagram_business');
@@ -251,20 +258,31 @@ export function Sidebar({
       {/* Plan Limits Card */}
       <div className="p-3.5 m-3 bg-slate-50 rounded-2xl border border-slate-200">
         <div className="flex items-center justify-between text-xs font-bold text-slate-800">
-          <span>{user?.plan || 'Starter Plan'}</span>
-          <span className="text-[10px] font-bold bg-[#E7F3FF] text-[#1877F2] px-2 py-0.5 rounded-full">
+          <span className="truncate">{user?.plan || 'Free Tier'}</span>
+          <span className="text-[10px] font-bold bg-[#E7F3FF] text-[#1877F2] px-2 py-0.5 rounded-full shrink-0">
             Active
           </span>
         </div>
         <div className="mt-2.5 w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
-          <div className="bg-[#1877F2] h-1.5 rounded-full" style={{ width: `${(accounts.length / 5) * 100}%` }} />
+          <div
+            className="bg-[#1877F2] h-1.5 rounded-full transition-all duration-300"
+            style={{ width: `${Math.min(100, (accounts.length / channelLimit) * 100)}%` }}
+          />
         </div>
-        <p className="mt-2 text-[11px] text-slate-500 flex justify-between font-medium">
-          <span>Channels: {accounts.length}/5</span>
-          <span onClick={() => setCurrentTab('settings')} className="text-[#1877F2] hover:underline cursor-pointer font-bold">
-            Change Plan
+        <div className="mt-2 text-[11px] text-slate-500 flex justify-between font-medium">
+          <span>Channels: {accounts.length}/{channelLimit}</span>
+          <span className="text-[10px] font-bold text-slate-400">
+            {accounts.length >= channelLimit ? 'Limit reached' : `${channelLimit - accounts.length} left`}
           </span>
-        </p>
+        </div>
+
+        <button
+          onClick={onOpenUpgradeModal}
+          className="mt-3 w-full py-2 bg-[#1877F2] hover:bg-[#166FE5] text-white text-[11px] font-bold rounded-xl shadow-xs transition-all active:scale-98 flex items-center justify-center space-x-1 cursor-pointer"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+          <span>⚡ Upgrade Plan</span>
+        </button>
       </div>
 
       {/* User Footer Profile with Logout Button */}

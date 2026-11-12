@@ -9,6 +9,7 @@ import { AccountsView } from '@/components/accounts-view';
 import { HistoryView } from '@/components/history-view';
 import { SettingsView } from '@/components/settings-view';
 import { ComposerModal } from '@/components/composer-modal';
+import { UpgradeModal } from '@/components/upgrade-modal';
 import { INITIAL_ACCOUNTS, INITIAL_POSTS } from '@/lib/mock-data';
 import { SocialAccount, PostItem } from '@/types';
 import { useAuth } from '@/lib/auth-context';
@@ -21,6 +22,8 @@ export default function UserDashboardPage() {
   const [currentTab, setCurrentTab] = useState<string>('queue');
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
   const [isComposerOpen, setIsComposerOpen] = useState(false);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const [upgradeReason, setUpgradeReason] = useState<string | undefined>(undefined);
   const [accounts, setAccounts] = useState<SocialAccount[]>(INITIAL_ACCOUNTS);
   const [posts, setPosts] = useState<PostItem[]>(INITIAL_POSTS);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -151,6 +154,7 @@ export default function UserDashboardPage() {
         selectedAccountId={selectedAccountId}
         setSelectedAccountId={setSelectedAccountId}
         onOpenConnectModal={() => setCurrentTab('accounts')}
+        onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -205,6 +209,7 @@ export default function UserDashboardPage() {
                 accounts={accounts}
                 onAddAccount={handleAddAccount}
                 onRemoveAccount={handleRemoveAccount}
+                onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
               />
             )}
 
@@ -219,6 +224,13 @@ export default function UserDashboardPage() {
         onClose={() => setIsComposerOpen(false)}
         accounts={accounts}
         onPublishPost={handlePublishPost}
+      />
+
+      {/* In-App Dynamic Upgrade Modal */}
+      <UpgradeModal
+        isOpen={isUpgradeModalOpen}
+        onClose={() => setIsUpgradeModalOpen(false)}
+        reason={upgradeReason}
       />
     </div>
   );

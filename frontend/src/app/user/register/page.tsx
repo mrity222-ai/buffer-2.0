@@ -8,17 +8,16 @@ import { useAuth } from '@/lib/auth-context';
 
 export default function UserRegisterPage() {
   const router = useRouter();
-  const { registerUser, packages } = useAuth();
+  const { registerUser } = useAuth();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [selectedPlan, setSelectedPlan] = useState<string>(packages[1]?.name || 'Starter Plan');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email) return;
-    registerUser(name, email, selectedPlan);
+    registerUser(name, email, 'Free Tier');
     router.push('/user/dashboard');
   };
 
@@ -95,37 +94,14 @@ export default function UserRegisterPage() {
               </div>
             </div>
 
-            {/* Plan Selector dynamically populated from packages */}
-            <div className="pt-2">
-              <label className="block text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
-                <span>Select Subscription Plan</span>
-                <span className="text-[10px] font-semibold text-slate-400">Can change anytime</span>
-              </label>
-
-              <div className="grid grid-cols-2 gap-2">
-                {packages.map((pkg) => (
-                  <button
-                    key={pkg.id}
-                    type="button"
-                    onClick={() => setSelectedPlan(pkg.name)}
-                    className={`p-3 rounded-xl border text-left cursor-pointer transition-all ${
-                      selectedPlan === pkg.name
-                        ? 'border-[#1877F2] bg-[#E7F3FF] text-[#1877F2] ring-1 ring-[#1877F2] shadow-xs'
-                        : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-bold truncate">{pkg.name}</p>
-                      {pkg.isPopular && (
-                        <span className="text-[8px] bg-[#1877F2] text-white px-1.5 py-0.2 rounded font-bold">
-                          HOT
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm font-black mt-1">{pkg.price}</p>
-                    <p className="text-[10px] text-slate-500 font-medium">{pkg.accountLimit} Channels</p>
-                  </button>
-                ))}
+            {/* Free Tier Included Notice (Upgrades happen inside dashboard) */}
+            <div className="p-3.5 bg-[#E7F3FF]/70 border border-[#1877F2]/20 rounded-xl flex items-start space-x-2.5">
+              <Sparkles className="w-4 h-4 text-[#1877F2] shrink-0 mt-0.5" />
+              <div className="text-xs">
+                <p className="font-bold text-slate-800">Free Tier Included Automatically</p>
+                <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed font-medium">
+                  Connect up to 2 social channels, auto-detect 9:16 Reels & schedule posts. You can upgrade to Starter or Pro anytime directly from your dashboard.
+                </p>
               </div>
             </div>
 
@@ -134,9 +110,12 @@ export default function UserRegisterPage() {
                 type="submit"
                 className="w-full bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold py-3 rounded-xl shadow-xs transition-all active:scale-98 cursor-pointer flex items-center justify-center space-x-1.5"
               >
-                <span>Create Account & Start Publishing</span>
+                <span>Create Free Account & Start Publishing</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+              <p className="text-[10px] text-slate-400 font-medium text-center mt-2.5">
+                No credit card required · Instant access · Free tier forever
+              </p>
             </div>
           </form>
 
