@@ -50,14 +50,14 @@ export function BufferSidebar({
 
   return (
     <aside className="w-64 bg-[#16171b] border-r border-[#26282f] flex flex-col h-screen select-none shrink-0 font-sans relative z-30">
-      {/* Top Header: Buffer Logo & Sprout matching Image 2 */}
+      {/* Top Header: Logo & Sprout */}
       <div className="p-4 flex items-center justify-between">
         <Link href="/user/dashboard" className="flex items-center space-x-2">
           <BufferLogo className="w-5 h-5 text-white" />
-          <span className="text-base font-bold text-white tracking-tight">Buffer</span>
+          <span className="text-base font-bold text-white tracking-tight">Maeaco ploit</span>
         </Link>
         <button 
-          title="Buffer Sprout" 
+          title="Maeaco ploit Sprout" 
           onClick={onOpenUpgradeModal}
           className="text-[#8fd98b] hover:opacity-80 transition-opacity cursor-pointer"
         >

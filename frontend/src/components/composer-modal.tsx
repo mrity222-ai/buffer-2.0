@@ -223,7 +223,7 @@ export function ComposerModal({
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">
-                Buffer · Video & Reels Composer
+                Maeaco ploit · Video & Reels Composer
               </h3>
               <p className="text-[11px] text-slate-400 font-medium">
                 Auto-sizes Reels (9:16) & Feed Videos for Facebook Pages and Instagram Professional

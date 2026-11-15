@@ -15,7 +15,7 @@ import {
 export function AdminSettingsView() {
   const [appId, setAppId] = useState('194820491823910');
   const [appSecret, setAppSecret] = useState('8f9b2c3d4e5f6a7b8c9d0e1f2a3b4c5d');
-  const [webhookToken, setWebhookToken] = useState('buffer_meta_verify_secret_2026');
+  const [webhookToken, setWebhookToken] = useState('maeaco_meta_verify_secret_2026');
   const [celeryConcurrency, setCeleryConcurrency] = useState('8');
   const [showSecret, setShowSecret] = useState(false);
   const [savedToast, setSavedToast] = useState(false);

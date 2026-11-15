@@ -3,8 +3,8 @@ import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
-  title: "Social Publisher | Create Once. Publish Everywhere.",
-  description: "Buffer-inspired social media publisher for Facebook Pages and Instagram Business Accounts.",
+  title: "Maeaco ploit | Create Once. Publish Everywhere.",
+  description: "Maeaco ploit social media publisher for Facebook Pages and Instagram Business Accounts.",
 };
 
 export default function RootLayout({

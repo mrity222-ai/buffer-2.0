@@ -28,12 +28,12 @@ export function LandingPage() {
 
   const faqs = [
     {
-      q: 'Does Social Publisher support personal Facebook and Instagram profiles?',
+      q: 'Does Maeaco ploit support personal Facebook and Instagram profiles?',
       a: 'Meta Graph API officially supports publishing to Facebook Pages and Instagram Professional (Business & Creator) accounts. Personal profiles do not support automated API publishing under Meta policies.',
     },
     {
       q: 'How does the automatic Reel (9:16) aspect ratio detection work?',
-      a: 'When you upload an MP4 or MOV file, Social Publisher reads the video dimensions in real-time. If the video is vertical (~9:16), it automatically selects Reel mode with optimized encoding flags so Meta servers stream it in full 1080p HD without compression artifacts.',
+      a: 'When you upload an MP4 or MOV file, Maeaco ploit reads the video dimensions in real-time. If the video is vertical (~9:16), it automatically selects Reel mode with optimized encoding flags so Meta servers stream it in full 1080p HD without compression artifacts.',
     },
     {
       q: 'Can administrators create custom packages and pricing?',
@@ -55,7 +55,7 @@ export function LandingPage() {
           </div>
           <div>
             <h1 className="text-base font-black text-slate-900 tracking-tight flex items-center gap-1.5">
-              Social Publisher
+              Maeaco ploit
               <span className="text-[10px] font-bold bg-[#E7F3FF] text-[#1877F2] px-2 py-0.5 rounded-full">
                 SaaS
               </span>
@@ -115,7 +115,7 @@ export function LandingPage() {
 
         {/* Subtitle */}
         <p className="mt-5 text-sm md:text-base text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-          The modern Buffer alternative for creators and marketing agencies. Upload high-res Reels, videos, and posts once, and broadcast simultaneously to multiple <strong>Facebook Pages</strong> and <strong>Instagram Business Accounts</strong>.
+          The modern Maeaco ploit platform for creators and marketing agencies. Upload high-res Reels, videos, and posts once, and broadcast simultaneously to multiple <strong>Facebook Pages</strong> and <strong>Instagram Business Accounts</strong>.
         </p>
 
         {/* Hero Action Buttons */}
@@ -172,7 +172,7 @@ export function LandingPage() {
                     Login →
                   </Link>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 mt-2">Creator & Social Publisher Tool</h4>
+                <h4 className="text-sm font-bold text-slate-900 mt-2">Creator & Maeaco ploit Tool</h4>
                 <p className="text-xs text-slate-600 mt-1">
                   Connect Facebook Pages & Instagram, craft 9:16 Reels with auto-detection, view live preview phone mockups, schedule into your Queue, and view history.
                 </p>
@@ -314,7 +314,7 @@ export function LandingPage() {
             <div className="w-6 h-6 rounded-lg bg-[#1877F2] flex items-center justify-center text-white font-bold text-xs">
               f
             </div>
-            <span className="font-bold text-slate-700">Social Publisher SaaS</span>
+            <span className="font-bold text-slate-700">Maeaco ploit SaaS</span>
             <span>·</span>
             <span>Create Once. Publish Everywhere.</span>
           </div>
@@ -326,7 +326,7 @@ export function LandingPage() {
             <Link href="/user/dashboard" className="hover:text-[#1877F2]">User Dashboard</Link>
           </div>
 
-          <p className="text-[11px]">© 2026 Social Publisher. Built for Facebook & Instagram.</p>
+          <p className="text-[11px]">© 2026 Maeaco ploit. Built for Facebook & Instagram.</p>
         </div>
       </footer>
     </div>

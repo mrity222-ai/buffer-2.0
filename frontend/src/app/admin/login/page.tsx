@@ -11,18 +11,18 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const { loginAdmin } = useAuth();
 
-  const [email, setEmail] = useState('superadmin@buffer.internal');
+  const [email, setEmail] = useState('superadmin@maeacoploit.internal');
   const [password, setPassword] = useState('••••••••••••');
   const [secretKey, setSecretKey] = useState('KEY-ROOT-2026');
 
   const handleAdminSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loginAdmin(email || 'superadmin@buffer.internal', secretKey);
+    loginAdmin(email || 'superadmin@maeacoploit.internal', secretKey);
     router.push('/admin/dashboard');
   };
 
   const handleQuickAdminDemo = () => {
-    loginAdmin('superadmin@buffer.internal', 'MASTER_KEY_DEV');
+    loginAdmin('superadmin@maeacoploit.internal', 'MASTER_KEY_DEV');
     router.push('/admin/dashboard');
   };
 
@@ -35,7 +35,7 @@ export default function AdminLoginPage() {
         </div>
         <div className="flex items-center justify-center gap-2 mb-1">
           <h2 className="text-2xl font-bold tracking-tight text-white">
-            Buffer Admin Center
+            Maeaco ploit Admin Center
           </h2>
           <span className="text-[10px] font-black bg-purple-900/60 text-purple-300 border border-purple-700/50 px-2 py-0.5 rounded">
             ROOT
@@ -59,7 +59,7 @@ export default function AdminLoginPage() {
                 <input
                   type="email"
                   required
-                  placeholder="admin@buffer.internal"
+                  placeholder="admin@maeacoploit.internal"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-[#16171b] border border-[#2a2d34] text-white pl-9 pr-3 py-2.5 rounded-xl placeholder-slate-500 focus:outline-none focus:border-[#8fd98b]"

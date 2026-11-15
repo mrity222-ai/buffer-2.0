@@ -22,7 +22,7 @@ export default function UserRegisterPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) return;
-    const name = email.split('@')[0] || 'Buffer Creator';
+    const name = email.split('@')[0] || 'Maeaco ploit Creator';
     registerUser(name, email, 'Free Plan');
     router.push('/user/dashboard');
   };
@@ -38,7 +38,7 @@ export default function UserRegisterPage() {
               <BufferLogo className="w-9 h-9 text-white" />
             </div>
             <h1 className="text-2xl lg:text-[28px] font-bold text-white tracking-tight">
-              Create a Buffer Account
+              Create a Maeaco ploit Account
             </h1>
             <p className="mt-2 text-sm text-slate-400">
               Already have an account?{' '}
@@ -127,7 +127,7 @@ export default function UserRegisterPage() {
               type="button"
               onClick={() => {
                 setEmail('info.avedatechnologies@gmail.com');
-                setPassword('Buffer2026!Pro');
+                setPassword('Maeaco2026!Pro');
               }}
               className="text-xs text-slate-500 hover:text-[#8fd98b] underline transition-colors cursor-pointer"
             >

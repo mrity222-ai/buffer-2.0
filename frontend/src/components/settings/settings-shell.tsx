@@ -60,7 +60,7 @@ export function SettingsShell({
   const [timezone, setTimezone] = useState('Kolkata');
   const [timeFormat, setTimeFormat] = useState('12-hour');
   const [startOfWeek, setStartOfWeek] = useState('Sunday');
-  const [landingPage, setLandingPage] = useState('Buffer Home');
+  const [landingPage, setLandingPage] = useState('Maeaco ploit Home');
   const [postingAction, setPostingAction] = useState('Next Available');
   const [mentionsCounter, setMentionsCounter] = useState('Counter');
 
@@ -453,7 +453,7 @@ export function SettingsShell({
                   <div>
                     <h3 className="text-xs font-bold text-white">Two Factor Authentication</h3>
                     <p className="text-[11px] text-slate-400 mt-1 max-w-md leading-relaxed">
-                      Two factor authentication adds an extra layer of security for your Buffer account. Whenever you log in, you will be asked for a security code.
+                      Two factor authentication adds an extra layer of security for your Maeaco ploit account. Whenever you log in, you will be asked for a security code.
                     </p>
                   </div>
                   <button
@@ -474,7 +474,7 @@ export function SettingsShell({
                 <div>
                   <h3 className="text-xs font-bold text-white">Delete your account</h3>
                   <p className="text-[11px] text-slate-400 mt-0.5">
-                    When you delete your account, you lose access to Buffer workspace and scheduled posts.
+                    When you delete your account, you lose access to Maeaco ploit workspace and scheduled posts.
                   </p>
                 </div>
                 <button
@@ -503,7 +503,7 @@ export function SettingsShell({
                 <div className="flex items-center justify-between pb-4 border-b border-[#26282f]">
                   <div>
                     <h3 className="font-bold text-white">Appearance</h3>
-                    <p className="text-slate-400 text-[11px] mt-0.5">Customize the look and feel of Buffer on this device.</p>
+                    <p className="text-slate-400 text-[11px] mt-0.5">Customize the look and feel of Maeaco ploit on this device.</p>
                   </div>
                   <select
                     value={appearance}
@@ -577,7 +577,7 @@ export function SettingsShell({
                     onChange={(e) => setLandingPage(e.target.value)}
                     className="bg-[#1e2025] border border-[#2a2d34] rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none cursor-pointer"
                   >
-                    <option value="Buffer Home">Buffer Home</option>
+                    <option value="Maeaco ploit Home">Maeaco ploit Home</option>
                     <option value="Publish Queue">Publish Queue</option>
                     <option value="Create Ideas">Create Ideas</option>
                   </select>

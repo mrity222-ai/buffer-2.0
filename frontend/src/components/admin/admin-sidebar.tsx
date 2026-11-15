@@ -42,13 +42,13 @@ export function AdminSidebar({
         <Link href="/admin/dashboard" className="flex items-center space-x-2">
           <BufferLogo className="w-5 h-5 text-white" />
           <div className="flex items-center gap-1.5">
-            <span className="text-base font-bold text-white tracking-tight">Buffer</span>
+            <span className="text-base font-bold text-white tracking-tight">Maeaco ploit</span>
             <span className="text-[10px] font-black bg-purple-900/60 text-purple-300 border border-purple-700/50 px-1.5 py-0.2 rounded">
               ADMIN
             </span>
           </div>
         </Link>
-        <div title="Buffer Admin Sprout" className="text-[#8fd98b]">
+        <div title="Maeaco ploit Admin Sprout" className="text-[#8fd98b]">
           <BufferPlantIcon className="w-5 h-5 text-[#8fd98b]" />
         </div>
       </div>

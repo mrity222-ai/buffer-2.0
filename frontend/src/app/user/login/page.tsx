@@ -37,7 +37,7 @@ export default function UserLoginPage() {
               <BufferLogo className="w-9 h-9 text-white" />
             </div>
             <h1 className="text-2xl lg:text-[28px] font-bold text-white tracking-tight">
-              Log in to Buffer
+              Log in to Maeaco ploit
             </h1>
             <p className="mt-2 text-sm text-slate-400">
               Don't have an account?{' '}

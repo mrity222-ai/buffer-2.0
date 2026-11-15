@@ -39,7 +39,7 @@ export function HomeView({
     {
       id: 1,
       title: 'Connect a channel',
-      desc: 'Pick where you post first, like Instagram or LinkedIn. Buffer publishes there for you.',
+      desc: 'Pick where you post first, like Instagram or LinkedIn. Maeaco ploit publishes there for you.',
       actionText: 'Select Channel',
       action: onOpenConnectModal,
     },
@@ -91,7 +91,7 @@ export function HomeView({
         <div className="p-4 px-6 border-b border-[#2a2d34] flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="text-slate-400">⚑</span>
-            <h2 className="text-sm font-bold text-white">Get Started with Buffer</h2>
+            <h2 className="text-sm font-bold text-white">Get Started with Maeaco ploit</h2>
           </div>
           <div className="flex items-center space-x-3">
             <span className="text-xs text-slate-400 font-semibold">0/4 completed</span>
@@ -303,7 +303,7 @@ export function HomeView({
       {/* Floating Bottom Right Help Button matching Image 2 */}
       <div className="fixed bottom-5 right-5 z-40">
         <button
-          onClick={() => alert('Buffer Help Center: Visit support.buffer.com for documentation or reach out at hello@buffer.com')}
+          onClick={() => alert('Maeaco ploit Help Center: Visit support.maeacoploit.com for documentation or reach out at hello@maeacoploit.com')}
           className="w-10 h-10 rounded-full bg-[#1e2025] hover:bg-[#26282f] border border-[#2a2d34] text-slate-400 hover:text-white flex items-center justify-center shadow-2xl transition-colors cursor-pointer"
           title="Help & Resources"
         >

@@ -35,7 +35,7 @@ const INITIAL_IDEAS: IdeaItem[] = [
   {
     id: 'idea-2',
     title: 'Save inspirations you find online with one click 💡',
-    description: 'Use Buffer browser extension or quick capture to save viral reels, hooks, and captions from Instagram & Facebook.',
+    description: 'Use Maeaco ploit browser extension or quick capture to save viral reels, hooks, and captions from Instagram & Facebook.',
     status: 'unassigned',
     tags: ['Inspiration'],
     hasImage: true,
@@ -374,7 +374,7 @@ export function CreateView({ onOpenComposerWithIdea }: CreateViewProps) {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#8fd98b]" />
-                <span>Buffer AI Idea Generator</span>
+                <span>Maeaco ploit AI Idea Generator</span>
               </h3>
               <button onClick={() => setIsGenerateModalOpen(false)} className="text-slate-400 hover:text-white cursor-pointer">
                 <X className="w-4 h-4" />

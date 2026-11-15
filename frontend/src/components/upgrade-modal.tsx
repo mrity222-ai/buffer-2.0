@@ -45,7 +45,7 @@ export function UpgradeModal({ isOpen, onClose, reason }: UpgradeModalProps) {
           </div>
 
           <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white">
-            Upgrade Your Buffer Workspace
+            Upgrade Your Maeaco ploit Workspace
           </h2>
           <p className="mt-1.5 text-xs md:text-sm text-slate-300 font-medium max-w-xl leading-relaxed">
             {reason || 'Connect more Facebook Pages & Instagram accounts, publish unlimited 9:16 Reels in 1080p HQ, and scale your audience.'}

@@ -70,7 +70,7 @@ export function ConnectChannelModal({
           <div>
             <h3 className="text-base font-bold text-white">Connect a Social Channel</h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Select your network to authenticate and publish directly from Buffer
+              Select your network to authenticate and publish directly from Maeaco ploit
             </p>
           </div>
           <button

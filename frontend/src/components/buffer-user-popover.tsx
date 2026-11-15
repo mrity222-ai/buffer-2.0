@@ -126,7 +126,7 @@ export function BufferUserPopover({
         <button
           onClick={() => {
             onClose();
-            alert('Buffer Support: Visit help.buffer.com for guides and live chat support.');
+            alert('Maeaco ploit Support: Visit help.maeacoploit.com for guides and live chat support.');
           }}
           className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs text-slate-200 hover:text-white hover:bg-[#26282f] rounded-lg transition-colors cursor-pointer"
         >
@@ -185,7 +185,7 @@ export function BufferUserPopover({
         <button
           onClick={() => {
             onClose();
-            alert('Refer a Friend: Give $10, get $10 when a fellow creator signs up for Buffer!');
+            alert('Refer a Friend: Give $10, get $10 when a fellow creator signs up for Maeaco ploit!');
           }}
           className="w-full flex items-center px-2.5 py-1.5 text-xs text-slate-200 hover:text-white hover:bg-[#26282f] rounded-lg transition-colors cursor-pointer space-x-2.5"
         >
