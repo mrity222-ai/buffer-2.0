@@ -213,35 +213,35 @@ export function ComposerModal({
   const isOverInstagramLimit = charCount > 2200;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto font-sans">
-      <div className="bg-white rounded-2xl w-full max-w-5xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[94vh]">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto font-sans text-white">
+      <div className="bg-[#1e2025] rounded-3xl w-full max-w-5xl shadow-2xl border border-[#2a2d34] overflow-hidden flex flex-col max-h-[94vh]">
         {/* Modal Top Header */}
-        <div className="px-6 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+        <div className="px-6 py-3.5 border-b border-[#2a2d34] flex items-center justify-between bg-[#16171b]">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#1877F2] flex items-center justify-center text-white font-bold text-sm shadow-xs">
+            <div className="w-8 h-8 rounded-lg bg-[#8fd98b] flex items-center justify-center text-[#101114] font-bold text-sm shadow-xs">
               🎬
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">
-                Social Publisher · Video & Reels Composer
+              <h3 className="text-sm font-bold text-white">
+                Buffer · Video & Reels Composer
               </h3>
-              <p className="text-[11px] text-slate-500 font-medium">
+              <p className="text-[11px] text-slate-400 font-medium">
                 Auto-sizes Reels (9:16) & Feed Videos for Facebook Pages and Instagram Professional
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-full transition-colors cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-white hover:bg-[#26282f] rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Channel Selector Bar */}
-        <div className="px-6 py-2.5 border-b border-slate-100 bg-white flex flex-wrap items-center justify-between gap-2">
+        <div className="px-6 py-2.5 border-b border-[#2a2d34] bg-[#1a1c22] flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2 overflow-x-auto py-1">
-            <span className="text-xs font-bold text-slate-600 mr-1">Publish to:</span>
+            <span className="text-xs font-bold text-slate-300 mr-1">Publish to:</span>
             {accounts.map((acc) => {
               const isSelected = selectedAccountIds.includes(acc.id);
               return (
@@ -684,16 +684,16 @@ export function ComposerModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3.5 border-t border-slate-100 bg-white flex items-center justify-between">
-          <div className="text-xs text-slate-500 font-medium">
-            Publishing to: <strong className="text-slate-800">{selectedAccountIds.length}</strong> selected channels
+        <div className="px-6 py-3.5 border-t border-[#2a2d34] bg-[#16171b] flex items-center justify-between">
+          <div className="text-xs text-slate-400 font-medium">
+            Publishing to: <strong className="text-white">{selectedAccountIds.length}</strong> selected channels
           </div>
 
           <div className="flex items-center space-x-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+              className="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white hover:bg-[#26282f] rounded-xl transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -703,11 +703,11 @@ export function ComposerModal({
                 type="button"
                 onClick={handlePublish}
                 disabled={isPublishing}
-                className="flex items-center space-x-2 bg-[#1877F2] hover:bg-[#166FE5] text-white px-5 py-2.5 rounded-l-xl text-xs font-bold transition-all disabled:opacity-50 cursor-pointer"
+                className="flex items-center space-x-2 bg-[#8fd98b] hover:bg-[#7ecf7a] text-[#101114] px-5 py-2.5 rounded-l-xl text-xs font-bold transition-all disabled:opacity-50 cursor-pointer"
               >
                 {isPublishing ? (
                   <>
-                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span className="w-3.5 h-3.5 border-2 border-[#101114] border-t-transparent rounded-full animate-spin" />
                     <span>Publishing Reel...</span>
                   </>
                 ) : publishingAction === 'now' ? (
@@ -728,7 +728,7 @@ export function ComposerModal({
                 onClick={() =>
                   setPublishingAction((prev) => (prev === 'now' ? 'queue' : 'now'))
                 }
-                className="bg-[#166FE5] hover:bg-[#1464D2] text-white px-2.5 py-2.5 rounded-r-xl border-l border-blue-400/40 flex items-center justify-center cursor-pointer"
+                className="bg-[#7ecf7a] hover:bg-[#6ec06a] text-[#101114] px-2.5 py-2.5 rounded-r-xl border-l border-[#6ebd69] flex items-center justify-center cursor-pointer"
                 title="Switch between Publish Now and Add to Queue"
               >
                 <ChevronDown className="w-3.5 h-3.5" />
