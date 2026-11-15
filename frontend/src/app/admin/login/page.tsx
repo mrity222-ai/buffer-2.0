@@ -3,49 +3,55 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShieldCheck, Lock, Mail, Key, ArrowRight, Sparkles, Terminal } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, Key, ArrowRight, Sparkles } from 'lucide-react';
+import { BufferLogo } from '@/components/buffer-logo';
 import { useAuth } from '@/lib/auth-context';
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const { loginAdmin } = useAuth();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [secretKey, setSecretKey] = useState('');
+  const [email, setEmail] = useState('superadmin@buffer.internal');
+  const [password, setPassword] = useState('••••••••••••');
+  const [secretKey, setSecretKey] = useState('KEY-ROOT-2026');
 
   const handleAdminSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loginAdmin(email || 'admin@socialpublisher.io', secretKey);
+    loginAdmin(email || 'superadmin@buffer.internal', secretKey);
     router.push('/admin/dashboard');
   };
 
   const handleQuickAdminDemo = () => {
-    loginAdmin('superadmin@socialpublisher.io', 'MASTER_KEY_DEV');
+    loginAdmin('superadmin@buffer.internal', 'MASTER_KEY_DEV');
     router.push('/admin/dashboard');
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans selection:bg-purple-900 selection:text-white">
-      {/* Admin Header */}
+    <div className="min-h-screen bg-[#101114] text-white flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans selection:bg-[#8fd98b] selection:text-[#101114]">
+      {/* Admin Header matching Buffer brand */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-purple-600/20 border border-purple-500/30 text-purple-400 mb-4 shadow-lg shadow-purple-900/40">
-          <ShieldCheck className="w-8 h-8" />
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#1e2025] border border-[#2a2d34] text-white mb-4 shadow-xl">
+          <BufferLogo className="w-8 h-8 text-white" />
         </div>
-        <h2 className="text-2xl font-black tracking-tight text-white">
-          SaaS Admin Control Center
-        </h2>
-        <p className="mt-1.5 text-xs text-slate-400 font-medium">
-          Authorized platform personnel only · Package creation & member oversight
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <h2 className="text-2xl font-bold tracking-tight text-white">
+            Buffer Admin Center
+          </h2>
+          <span className="text-[10px] font-black bg-purple-900/60 text-purple-300 border border-purple-700/50 px-2 py-0.5 rounded">
+            ROOT
+          </span>
+        </div>
+        <p className="mt-1 text-xs text-slate-400 font-medium">
+          Authorized personnel only • Dynamic Packages & Member Oversight
         </p>
       </div>
 
       {/* Main Admin Card */}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-slate-900/90 py-8 px-6 shadow-2xl rounded-2xl border border-slate-800 sm:px-10 backdrop-blur-md">
-          <form onSubmit={handleAdminSubmit} className="space-y-4">
+        <div className="bg-[#1e2025] py-8 px-6 shadow-2xl rounded-3xl border border-[#2a2d34] sm:px-10">
+          <form onSubmit={handleAdminSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block font-semibold text-slate-300 mb-1.5">
                 Admin Email Address
               </label>
               <div className="relative">
@@ -53,17 +59,17 @@ export default function AdminLoginPage() {
                 <input
                   type="email"
                   required
-                  placeholder="admin@socialpublisher.io"
+                  placeholder="admin@buffer.internal"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500"
+                  className="w-full bg-[#16171b] border border-[#2a2d34] text-white pl-9 pr-3 py-2.5 rounded-xl placeholder-slate-500 focus:outline-none focus:border-[#8fd98b]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
-                Admin Password
+              <label className="block font-semibold text-slate-300 mb-1.5">
+                Password
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
@@ -73,15 +79,15 @@ export default function AdminLoginPage() {
                   placeholder="••••••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500"
+                  className="w-full bg-[#16171b] border border-[#2a2d34] text-white pl-9 pr-3 py-2.5 rounded-xl placeholder-slate-500 focus:outline-none focus:border-[#8fd98b]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center justify-between">
-                <span>Master Security Key</span>
-                <span className="text-[10px] text-purple-400 font-mono">2FA / Key</span>
+              <label className="block font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
+                <span>Security Token Key</span>
+                <span className="text-[10px] text-[#8fd98b] font-mono">2FA / Root</span>
               </label>
               <div className="relative">
                 <Key className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
@@ -90,14 +96,14 @@ export default function AdminLoginPage() {
                   placeholder="KEY-ADMIN-XXXX"
                   value={secretKey}
                   onChange={(e) => setSecretKey(e.target.value)}
-                  className="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 font-mono focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500"
+                  className="w-full bg-[#16171b] border border-[#2a2d34] text-white pl-9 pr-3 py-2.5 rounded-xl font-mono placeholder-slate-500 focus:outline-none focus:border-[#8fd98b]"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-3 rounded-xl shadow-lg shadow-purple-900/30 transition-all active:scale-98 cursor-pointer flex items-center justify-center space-x-1.5"
+              className="w-full bg-[#8fd98b] hover:bg-[#7ecf7a] text-[#101114] text-xs font-bold py-3 rounded-xl shadow-xs transition-all active:scale-98 cursor-pointer flex items-center justify-center space-x-1.5 mt-2"
             >
               <span>Authenticate & Enter Admin Portal</span>
               <ArrowRight className="w-4 h-4" />
@@ -105,13 +111,13 @@ export default function AdminLoginPage() {
           </form>
 
           {/* Quick 1-Click Demo */}
-          <div className="mt-6 pt-5 border-t border-slate-800 text-center">
+          <div className="mt-6 pt-5 border-t border-[#2a2d34] text-center">
             <button
               type="button"
               onClick={handleQuickAdminDemo}
-              className="w-full bg-slate-800/80 hover:bg-slate-800 text-purple-300 hover:text-purple-200 text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center space-x-1.5 cursor-pointer border border-purple-500/20"
+              className="w-full bg-[#16171b] hover:bg-[#26282f] text-slate-200 hover:text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center space-x-1.5 cursor-pointer border border-[#2a2d34]"
             >
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+              <Sparkles className="w-3.5 h-3.5 text-[#8fd98b]" />
               <span>1-Click Admin Demo Login</span>
             </button>
           </div>
@@ -120,8 +126,8 @@ export default function AdminLoginPage() {
         {/* User Portal Link */}
         <div className="mt-6 text-center text-xs text-slate-500">
           Not an administrator?{' '}
-          <Link href="/user/login" className="font-bold text-[#1877F2] hover:underline">
-            Go to User Creator Login →
+          <Link href="/user/login" className="font-bold text-[#8fd98b] hover:underline">
+            Go to Creator Login →
           </Link>
         </div>
       </div>
