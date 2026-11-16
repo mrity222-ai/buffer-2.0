@@ -23,8 +23,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -32,6 +30,10 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Ensure frontend/src/lib is always tracked
+!frontend/src/lib/
+!frontend/src/lib/**
 
 # Environment variables
 .env
